@@ -44,12 +44,19 @@ pipeline {
                 echo "单元测试完成."
                 junit 'target/surefire-reports/*.xml' // 收集单元测试报告的调用过程
               	
-              	sh 'cd target && tar zcvf report.tgz site/jacoco'
               	
-              	archiveArtifacts artifacts: '**/target/*.tgz', fingerprint: true // 收集构建产物
             }
         }
-
+		stage("JaCoCo") {
+            steps {
+                echo "生成 JaCoCo..."
+              	sh 'find target'
+                sh 'cd target && tar zcvf report.tgz site/jacoco'
+              	archiveArtifacts artifacts: 'target/*.tgz', fingerprint: true // 收集构建产物
+              	sh 'ls -l target/*.tgz'
+                echo "JaCoCo完成"
+            }
+        }
         stage("部署") {
             steps {
                 echo "部署中..."
