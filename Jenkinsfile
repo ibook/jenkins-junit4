@@ -43,6 +43,10 @@ pipeline {
                 // sh 'make test' // make 示例
                 echo "单元测试完成."
                 junit 'target/surefire-reports/*.xml' // 收集单元测试报告的调用过程
+              	
+              	sh 'cd target && tar zcvf report.tgz site/jacoco'
+              	
+              	archiveArtifacts artifacts: '**/target/*.tgz', fingerprint: true // 收集构建产物
             }
         }
 
