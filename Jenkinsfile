@@ -44,10 +44,10 @@ pipeline {
                 echo "单元测试完成."
                 junit 'target/surefire-reports/*.xml' // 收集单元测试报告的调用过程
               	
-              	
+              	step( [ $class: 'JacocoPublisher' ] )
             }
         }
-		stage("JaCoCo") {
+	stage("JaCoCo") {
             steps {
                 echo "生成 JaCoCo..."
               	sh 'find target'
