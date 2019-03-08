@@ -39,7 +39,7 @@ pipeline {
             steps {
                 echo "单元测试中..."
                 // 请在这里放置您项目代码的单元测试调用过程，例如:
-                sh 'mvn test' // mvn 示例
+                sh 'mvn test -Dmaven.test.failure.ignore' // mvn 示例
                 // sh 'make test' // make 示例
                 echo "单元测试完成."
                 junit 'target/surefire-reports/*.xml' // 收集单元测试报告的调用过程
